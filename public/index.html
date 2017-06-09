@@ -1,0 +1,141 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="//aui-cdn.atlassian.com/aui-adg/6.0.6/css/aui.min.css" media="all">
+        <link rel="stylesheet" href="//aui-cdn.atlassian.com/aui-adg/6.0.6/css/aui-experimental.min.css" media="all">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="//aui-cdn.atlassian.com/aui-adg/6.0.6/js/aui.min.js"></script>
+        <script src="//aui-cdn.atlassian.com/aui-adg/6.0.6/js/aui-experimental.min.js"></script>
+        <script src="//aui-cdn.atlassian.com/aui-adg/6.0.6/js/aui-datepicker.min.js"></script>
+        <script src="//aui-cdn.atlassian.com/aui-adg/6.0.6/js/aui-soy.min.js"></script>
+
+        <title>Stranka</title>
+        <style>
+            .zoznam {
+                color: red;
+            }
+        </style>
+        <script>
+        window.addEventListener("load", function() {
+            console.log("loaded.");
+
+            // ajax
+            //var result; // = ["todo1", "todo2", "todo3"];
+
+            var ajaxRequest = new XMLHttpRequest();
+
+            ajaxRequest.onreadystatechange = function() {
+                if(ajaxRequest.readyState === XMLHttpRequest.DONE) {
+                    if(ajaxRequest.status === 200) {
+                        console.log(ajaxRequest.responseText);
+
+                        var result = JSON.parse(ajaxRequest.responseText);
+
+                        var ul = document.getElementsByTagName("ul")[0];
+                        result.forEach(function(todo) {
+                            console.log(todo);
+
+                            pridajLi(todo);
+                        });
+                    }
+                }
+            }
+
+            ajaxRequest.open("GET", "todos");
+            ajaxRequest.send();
+
+
+            
+
+            function pridajLi(text) {
+                var ul = document.getElementsByTagName("ul")[0];
+
+                console.log(ul);
+
+                var li = document.createElement("li");
+                li.innerHTML = text;
+                ul.appendChild(li);
+
+                var vymaz = document.createElement("button");
+                vymaz.innerHTML = "vymaz";
+                li.appendChild(vymaz);
+
+                vymaz.addEventListener("click", function(e) {
+                    var clickedButton  = e.target;
+                    console.log(clickedButton);
+
+                    // parent.removeChild(child);
+                    var li = clickedButton.parentNode;
+                    var ul = li.parentNode;
+
+                    ul.removeChild(li);
+                });
+            }
+
+            var button = document.getElementById("vloz");
+            console.log(button);
+
+            button.addEventListener("click", function(e) {
+                var todoElement = document.getElementById("text");
+                
+                var todoText = "";
+                if(todoElement) {
+                    console.log(todoElement);
+                    todoText = todoElement.value;
+                }
+
+                pridajLi(todoText);
+                todoElement.value = "";
+
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+            });
+
+            document.querySelector("form.aui").onclick = function(e) {
+                //alert(e.target);
+            }
+
+            button.addEventListener("click", function(e) {
+                //alert("button click");
+            });
+
+            document.getElementById("save").addEventListener("click", function() {
+                var ul = document.getElementsByClassName("zoznam")[0];
+
+                var liElements = ul.children;
+                var todos = [];
+                for(var i = 0; i < liElements.length; i++) {
+                   todos.push(liElements[i].firstChild.textContent);
+                }
+
+                console.log(todos);
+                // send todos via ajax
+            });
+
+        });
+
+        </script>
+    </head>
+    <body>
+        <script>console.log("html body");</script>
+        <h1>ToDo List</h1>
+
+        <form class="aui">
+            <div class="field-group">
+                <label for="comment-email">Todo
+                    <span class="aui-icon icon-required">(required)</span></label>
+                <input class="text medium-field" type="text"
+                        id="text" placeholder="zadaj todo">
+                <button id="vloz" class="aui-button">Vloz</button>
+            </div>
+        </form>
+
+        <!--<input id="text" type="text" value="init todo" />-->
+
+        <ul class="zoznam">
+
+        </ul>
+
+        <button id="save">Uloz</button>
+    </body>
+</html>
