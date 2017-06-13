@@ -1,5 +1,9 @@
 window.addEventListener("load", function() {
     console.log("window loaded");
+});
+
+$(document).ready(function() {
+    console.log("document ready");
 
     $("#addTodo").click(function(e) {
         e.preventDefault();
@@ -67,8 +71,4 @@ window.addEventListener("load", function() {
             $tr.remove();
         })
     });
-});
-
-$(document).ready(function() {
-    console.log("document ready");
 });
