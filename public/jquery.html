@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Todo s jQuery</title>
+        <link rel="stylesheet" href="//aui-cdn.atlassian.com/aui-adg/6.0.6/css/aui.min.css" media="all">
+        <link rel="stylesheet" href="//aui-cdn.atlassian.com/aui-adg/6.0.6/css/aui-experimental.min.css" media="all">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="//aui-cdn.atlassian.com/aui-adg/6.0.6/js/aui.min.js"></script>
+        <script src="//aui-cdn.atlassian.com/aui-adg/6.0.6/js/aui-experimental.min.js"></script>
+        <script src="//aui-cdn.atlassian.com/aui-adg/6.0.6/js/aui-datepicker.min.js"></script>
+        <script src="//aui-cdn.atlassian.com/aui-adg/6.0.6/js/aui-soy.min.js"></script>
+        <script src="jqueryTodo.js"></script>
+    </head>
+    <body>
+        <form class="aui">
+            <div class="field-group">
+                <label for="comment-email">ToDo
+                    <span class="aui-icon icon-required">(required)</span></label>
+                <input class="text medium-field" type="text"
+                    id="todoText" name="comment-email" placeholder="Todo text">
+                <button id="addTodo" class="aui-button aui-button-primary">Add</button>
+                <div class="description">Your
+                    Insert Todo.</div>
+            </div>
+            <table id="todoTable" class="aui">
+                <thead>
+                    <tr>
+                        <th>Done</th>
+                        <th>Text</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </form>
+    </body>
+</html>
