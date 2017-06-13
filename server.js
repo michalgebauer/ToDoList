@@ -22,7 +22,7 @@ app.post("/add", function(req, res) {
 });
 
 app.post("/todo", function(req, res) {
-    for(var i = 0; i < 5000000000; i++) {}
+    // for(var i = 0; i < 5000000000; i++) {}
 
     var todo = {
         id: ++increment,
@@ -49,7 +49,7 @@ app.delete("/todo", function(req, res) {
 
     if(todo) {
         var index = todos.indexOf(todo);
-        delete todos[index];
+        todos.splice(index, 1);
 
         res.end();
         return;
